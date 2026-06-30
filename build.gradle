@@ -1,0 +1,42 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '1.2.1'
+}
+
+group   = 'io.github.ankit.deploy'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+gradlePlugin {
+    website = 'https://github.com/ankitt-29/liferay-ordered-deploy'
+    vcsUrl  = 'https://github.com/ankitt-29/liferay-ordered-deploy'
+
+    plugins {
+        orderedDeploy {
+            id                  = 'io.github.ankit.deploy-ordered'
+            implementationClass = 'io.github.ankit.deploy.LiferayOrderedDeployPlugin'
+            displayName         = 'Liferay Ordered Deploy Plugin'
+            description         = 'Deploys Liferay OSGi modules in topological dependency order. ' +
+                                  'Automatically partitions modules into deployment waves, copies JARs to the Liferay deploy folder, ' +
+                                  'and verifies each bundle reaches Active state via the Gogo shell before proceeding to the next wave. ' +
+                                  'Supports OSGi fragment bundles (Fragment-Host) natively.'
+            tags                = ['liferay', 'osgi', 'deploy', 'bundle', 'gogo-shell']
+        }
+    }
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'commons-net:commons-net:3.10.0'
+}
+
+repositories {
+    mavenCentral()
+}
