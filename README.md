@@ -28,6 +28,30 @@ When a Liferay workspace has many interdependent OSGi modules (services, APIs, p
 
 ---
 
+## Prerequisites — Enable the Gogo Shell
+
+> This plugin connects to the **Liferay Gogo shell** to check if your modules are active after deployment. The Gogo shell is **disabled by default**, so you need to turn it on first.
+
+### What to do
+
+1. Open (or create) the file `portal-ext.properties` inside your Liferay server folder:
+   ```
+   <liferay-home>/portal-ext.properties
+   ```
+
+2. Add this line:
+   ```properties
+   module.framework.properties.osgi.console=0.0.0.0:11311
+   ```
+
+3. **Save** the file and **restart** your Liferay server.
+
+That's it! The Gogo shell will now be available on port `11311`, which is what this plugin uses by default.
+
+> **Note:** The `0.0.0.0` part means the Gogo shell listens on all network interfaces of your machine. In a production server, consider restricting this to `127.0.0.1:11311` so it is only accessible locally.
+
+---
+
 ## Installation
 
 Apply the plugin in your **root** `build.gradle`:
